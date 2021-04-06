@@ -12,7 +12,7 @@ For researching the topic and writing a related work based on 3-5 papers we will
 * [Emoji Representations from their Description](https://arxiv.org/pdf/1609.08359.pdf) --AA
 * [Emojitalianobot and EmojiWorldBot](http://ceur-ws.org/Vol-1749/paper37.pdf) --JJ
 * [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf) --AA
-* [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf)
+* [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) --JJ
 
 ### Data
 The main dataset will be 1M sentences with emoji from Twitter about 2017-Jan but the search is still in progress for new additional datasets. We are also deciding whether to use the emoji descriptions in training and/or testing.
