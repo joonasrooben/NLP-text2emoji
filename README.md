@@ -3,7 +3,7 @@
 
 ### Objective
 The plan is to create a NLP model that is capable to assign/predict emojis to given caption/tweet/text. 
-To illustrate the idea, let's think of a typical predictive keyboard that suggest us the next words. This is very similar to our goal, the model will predict an emoji corresponding to the inserted text. The model itself will most probably be RNN or CNN. The idea is partly based on the article [Multimodal Emoji Prediction](https://arxiv.org/pdf/1803.02392.pdf) by Francesco Barbieri et al.
+To illustrate the idea, let's think of a typical predictive keyboard that suggest us the next words. This is very similar to our goal, the model will predict an emoji corresponding to the inserted text. The idea is partly based on the article [Multimodal Emoji Prediction](https://arxiv.org/pdf/1803.02392.pdf) by Francesco Barbieri et al.
 
 For researching the topic and writing a related work we have chosen the following papers(the initials following the papers imply the one who worked it through):
 * [Multimodal Emoji Prediction](https://arxiv.org/pdf/1803.02392.pdf) --JJ
@@ -39,3 +39,17 @@ In this paper, the representation of emojis were estimated directly and only fro
 
 * [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf)
 The goal of the paper is very similar to ours - to predict the most appropriate emoji(s) to a given piece of text. They used the BERT and DeepMoji models for prediction. The authors address the problem of the lack of a benchmark dataset in the field of emoji prediction. They state that the insufficent means make it difficult to compare the performances of different emoji prediction models. Therefore, they provide such benchmark datasets and are waiting for other researchers to base their work on the datasets. As this article is fairly new (from August of 2020), it is a good opportunity for us to make use of the data. The only downside seems to be that the data and code for this paper is available only upon request.
+
+### Method
+
+Describe the methods/models/architectures that you plan to use. Sometimes a figure makes it much easier to explain a model or architecture than using only words.
+
+The initial idea of building a RNN or CNN has been revised due to the last practice session where we covered BERT model. As, paper [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) can provide us a very good comparison, we will definately try to implement GRU based recurrent network. In addition, we will create a BOW baseline model TF-IDF and hopefully an advancement to the RNN model- BERT. 
+
+For TF-IDF, BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
+
+*BiGRU* based model. We will use three types of embeddings: character based, word based pretrained and word based trainable embeddings. The use of character based embeddings is very much necessary as we are dealing with texts from social media which do not tend to be grammatically correct. The emedded sentences will be sent to bidirectional GRU layer and on top of it we will use two linear layers with Relu actiavtion functions. Dropout might be also considered regularization. In the end we will have a softmax layer which outputs the probability of the correct emoji. Here is a figure of the structure as well.  
+![*BiGRU* based model](gru.png.png)
+
+*BERT* based model. 
+
