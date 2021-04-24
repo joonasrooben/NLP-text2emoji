@@ -42,8 +42,6 @@ The goal of the paper is very similar to ours - to predict the most appropriate 
 
 ### Method
 
-Describe the methods/models/architectures that you plan to use. Sometimes a figure makes it much easier to explain a model or architecture than using only words.
-
 The initial idea of building a RNN or CNN has been revised due to the last practice session where we covered BERT model. As, paper [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) can provide us a very good comparison, we will definately try to implement GRU based recurrent network. In addition, we will create a BOW baseline model TF-IDF and hopefully an advancement to the RNN model- BERT. 
 
 For TF-IDF, BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
