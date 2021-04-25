@@ -13,9 +13,6 @@ For researching the topic and writing a related work we have chosen the followin
 * [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf) --AA
 * [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) --JJ
 
-### Data
-The main dataset will be 1M sentences with emoji from Twitter about 2017-Jan but the search is still in progress for new additional datasets. We are also deciding whether to use the emoji descriptions in training and/or testing.
-
 ### Evaluation
 In most of the articles, goodness is usually measured with traditional recall, precision, accuracy and F-score. In addition to the latter measures, as the target is rather subjective we cannot really tell which is the gold label or if we are not assigning too big of an error to the wrong label, although some emojis are very similar (e.g :smiley: and :smile:). Therefore, we could use a different measure. One way is to measure the predicted emoji similarity with the initial description of the emoji. The other way would be to evaluate the prediction which was in the users head. So, for that, we might need to carry out an extrinsic evaluation in the end to find out the model's actual performance.
 
@@ -39,6 +36,13 @@ In this paper, the representation of emojis were estimated directly and only fro
 
 * [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf)
 The goal of the paper is very similar to ours - to predict the most appropriate emoji(s) to a given piece of text. They used the BERT and DeepMoji models for prediction. The authors address the problem of the lack of a benchmark dataset in the field of emoji prediction. They state that the insufficent means make it difficult to compare the performances of different emoji prediction models. Therefore, they provide such benchmark datasets and are waiting for other researchers to base their work on the datasets. As this article is fairly new (from August of 2020), it is a good opportunity for us to make use of the data. The only downside seems to be that the data and code for this paper is available only upon request.
+
+### Data
+
+The main dataset has 1M sentences with emojis from Twitter from about 2017-Jan (obtained from https://github.com/jiali-ms/emoji2vec). The second dataset is MC-20 (obtained from the authors of “Emoji Prediction: Extensions and Benchmarking”), this dataset consists of the 20 most frequently used emojis with according tweets. In the first dataset, the distribution of emojis is by the actual frequency whereas in the second dataset, the distribution of each emoji is equal. 
+
+The first Twitter dataset is downsized to consist only the same 20 most frequent emojis and match the size of the second dataset (total of 200000 tweets). So in the first dataset there are almost 70000 tweets for the most frequent emoji and 1500 tweets for the least frequent and for the second dataset there are 10000 tweets for each of the 20 emojis. Both of the datasets are split into 80% train, 10% dev and 10% test. In case of computational limitations on training the models, we will downsize both datasets equally.
+
 
 ### Method
 
