@@ -3,15 +3,7 @@
 
 ### Objective
 The plan is to create a NLP model that is capable to assign/predict emojis to given caption/tweet/text. 
-To illustrate the idea, let's think of a typical predictive keyboard that suggest us the next words. This is very similar to our goal, the model will predict an emoji corresponding to the inserted text. The idea is partly based on the article [Multimodal Emoji Prediction](https://arxiv.org/pdf/1803.02392.pdf) by Francesco Barbieri et al.
-
-For researching the topic and writing a related work we have chosen the following papers(the initials following the papers imply the one who worked it through):
-* [Multimodal Emoji Prediction](https://arxiv.org/pdf/1803.02392.pdf) --JJ
-* [A Semantics-Based Measure of Emoji Similarity](https://arxiv.org/pdf/1707.04653.pdf) --SM
-* [Emoji Representations from their Description](https://arxiv.org/pdf/1609.08359.pdf) --AA
-* [Emojitalianobot and EmojiWorldBot](http://ceur-ws.org/Vol-1749/paper37.pdf) --JJ
-* [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf) --AA
-* [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) --JJ
+To illustrate the idea, let's think of a typical predictive keyboard that suggest us the next words. This is very similar to our goal, the model will predict an emoji corresponding to the inserted text. The idea is partly based on the article [[1]](#1) by Francesco Barbieri et al.
 
 ### Evaluation
 In most of the articles, goodness is usually measured with traditional recall, precision, accuracy and F-score. In addition to the latter measures, as the target is rather subjective we cannot really tell which is the gold label or if we are not assigning too big of an error to the wrong label, although some emojis are very similar (e.g :smiley: and :smile:). Therefore, we could use a different measure. One way is to measure the predicted emoji similarity with the initial description of the emoji. The other way would be to evaluate the prediction which was in the users head. So, for that, we might need to carry out an extrinsic evaluation in the end to find out the model's actual performance.
@@ -46,7 +38,7 @@ The first Twitter dataset is downsized to consist only the same 20 most frequent
 
 ### Method
 
-The initial idea of building a RNN or CNN has been revised due to the last practice session where we covered BERT model. As, paper [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf) can provide us a very good comparison, we will definately try to implement GRU based recurrent network. In addition, we will create a BOW baseline model TF-IDF and hopefully an advancement to the RNN model- BERT. 
+The initial idea of building a RNN or CNN has been revised due to the last practice session where we covered BERT model. As, paper [[1]](#1) can provide us a very good comparison, we will definately try to implement GRU based recurrent network. In addition, we will create a BOW baseline model TF-IDF and hopefully an advancement to the RNN model- BERT. 
 
 For TF-IDF, BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
 
@@ -57,10 +49,18 @@ For TF-IDF, BERT and RNN implementations- we will use the materials from the hom
 
 As related work does not give a plain signal if balanced or unbalanced data is better in emoji prediction, all the models will be trained on two datasets: unbalanced and balanced with same size and emojis. This way we hope to draw some conclusions in this dark area.
 
-In the evaluation phase, we plan to output F1-score, recall, precision and accuracy. In addition, as emoji-prediciton can be rather fuzzy- we will try to take it in account by using also the Mean Reciprocal Rank (MRR) usually used in evaluating of the factoid QA models. But, as our task is as subjective- it should give a better understanding of the models' goodness. [[1]](#1)
+In the evaluation phase, we plan to output F1-score, recall, precision and accuracy. In addition, as emoji-prediciton can be rather fuzzy- we will try to take it in account by using also the Mean Reciprocal Rank (MRR) usually used in evaluating of the factoid QA models. But, as our task is as subjective- it should give a better understanding of the models' goodness. 
 
 ## References
 <a id="1">[1]</a> 
-Dijkstra, E. W. (1968). 
-Go to statement considered harmful. 
-Communications of the ACM, 11(3), 147-148.
+Barbieri, Francesco & Ballesteros, Miguel & Saggion, Horacio. (2017). Are Emojis Predictable?. 105-111. 10.18653/v1/E17-2017. 
+<a id="2">[2]</a> 
+Barbieri, Francesco & Ballesteros, Miguel & Ronzano, Francesco & Saggion, Horacio. (2018). Multimodal Emoji Prediction. 679-686. 10.18653/v1/N18-2107. 
+<a id="3">[3]</a> 
+Monti, Johanna & Sangati, Federico & Chiusaroli, Francesca & Benjamin, Martin & Mansour, Sina. (2016). Emojitalianobot and EmojiWorldBot. 10.4000/books.aaccademia.1811. 
+<a id="4">[4]</a> 
+Wijeratne, Sanjaya & Balasuriya, Lakshika & Sheth, Amit & Doran, Derek. (2017). A Semantics-Based Measure of Emoji Similarity. 10.1145/3106426.3106490. 
+<a id="5">[5]</a> 
+Eisner, Ben & Rocktäschel, Tim & Augenstein, Isabelle & Bosnjak, Matko & Riedel, Sebastian. (2016). emoji2vec: Learning Emoji Representations from their Description. 48-54. 10.18653/v1/W16-6208. 
+<a id="6">[6]</a> 
+Ma, Weicheng & Liu, Ruibo & Wang, Lili & Vosoughi, Soroush. (2020). Emoji Prediction: Extensions and Benchmarking. 
