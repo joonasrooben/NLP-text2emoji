@@ -56,10 +56,40 @@ In the evaluation phase, we plan to output F1-score, recall, precision and accur
 #### BERT
 Two BERT models were trained- one with the Twitter unbalanced dataset and other with MC-20 balanced dataset. During fine tuning, learning rate 5e-5 and batch size 16 with 3 epochs of training gave the best results. 
 
-**Testing with opposite data**
+| Results  | Tf_idf:Twitter unbalanced | Tf_idf:MC_20 | BERT:Twitter unbalanced | BERT:MC_20 |
+|--------:|--------------------|------:|------:|------:|
+|Accuracy | 0.276 | 0.876 | 0.88 | 0.46|
+|Recall   | 0.168 |   0.875  | 0.880 | 0.12 |
+|Precision|  0.162 | 0.935 | 0.939 | 0.20 |
+| F_score | 0.164 | 0.894 | 0.900 | 0.14 |
+|  MRR    |  0.413 | 0.891 | 0.908 |  0.601 |
+
+|    |       | MC_20     | MC_20    | MC_20    | Twitter   | Twitter   | Twitter   |
+|----|-------|-----------|----------|----------|-----------|-----------|-----------|
+|    | Emoji | precision |   recall |  f_score | precision |    recall |   f_score |
+|  0 | 💪     |  0.985765 | 0.848825 | 0.912184 |  0.454545 |  0.246914 |      0.32 |
+|  1 | 👊     |  0.967337 | 0.805439 | 0.878995 |  0.371134 |  0.169014 |  0.232258 |
+|  2 | 🙌     |  0.987624 |     0.84 |  0.90785 |  0.407407 | 0.0531401 | 0.0940171 |
+|  3 | 🙏     |  0.985366 | 0.805583 | 0.886451 |  0.491736 |  0.445693 |  0.467583 |
+|  4 | ❤     |  0.961085 | 0.842813 | 0.898072 |  0.626168 |  0.241877 |  0.348958 |
+|  5 | 😜     |  0.355384 | 0.955535 | 0.518082 |         0 |         0 |         0 |
+|  6 | 👏     |   0.98029 |  0.89404 | 0.935181 |  0.457143 |  0.268156 |  0.338028 |
+|  7 | 🔥     |  0.852284 | 0.886754 | 0.869177 |  0.651515 |  0.552463 |  0.597914 |
+|  8 | 😎     |  0.995386 | 0.893375 | 0.941626 |  0.417021 |  0.168966 |  0.240491 |
+|  9 | 😁     |  0.986111 |   0.8841 | 0.932323 |  0.368421 | 0.0127042 | 0.0245614 |
+| 10 | 😉     |  0.965632 | 0.897013 | 0.930059 |  0.322129 |   0.15928 |   0.21316 |
+| 11 | 🎉     |  0.987395 | 0.914397 | 0.949495 |  0.542955 |  0.714932 |  0.617187 |
+| 12 | 💯     |  0.989035 | 0.873185 | 0.927506 |  0.540625 |  0.480556 |  0.508824 |
+| 13 | 👌     |  0.994094 | 0.927456 |  0.95962 |  0.422794 |  0.282209 |  0.338484 |
+| 14 | 😘     |  0.956212 | 0.954268 | 0.955239 |   0.46496 |  0.389391 |  0.423833 |
+| 15 | 👍     |  0.994813 | 0.895425 | 0.942506 |  0.453654 |  0.487548 |  0.469991 |
+| 16 | 👀     |   0.98893 | 0.885463 |  0.93434 |  0.548558 |  0.488184 |  0.516613 |
+| 17 | 😊     |  0.980794 | 0.836245 |  0.90277 |  0.376783 |  0.456224 |  0.412716 |
+| 18 | 😍     |  0.996629 | 0.933684 |  0.96413 |  0.542152 |   0.63398 |  0.584482 |
+| 19 | 😂     |  0.877944 | 0.835882 | 0.856397 |  0.663419 |  0.853464 |  0.746537 |
+
 **MC_20 model**: 
-avg MRR: 0.908
-0.9394055213152702 0.8804740701750176 0.9001001707274859
+
 |    | Emoji   |   precision |   recall |   f_score |
 |---:|:--------|------------:|---------:|----------:|
 |  0 | 💪      |    0.985765 | 0.848825 |  0.912184 |
@@ -108,56 +138,9 @@ test with Twitter data:
 | 19 | 😂      |  0.395156   | 0.0795375 | 0.132421   |
 
  
- Two hands placed firmly together, meaning please or thank you in Japanese culture
-['🙏'] 🙏
-Two hands raised in the air, celebrating success or another joyous event
-['😘'] 🙌
-A face showing a stuck-out tongue, winking at the same time
-['😍'] 😜
-An emoji face blowing a kiss; but officially called “Face Throwing A Kiss”
-['😎'] 😘
-A face smiling and wearing dark sunglasses that is used to denote a sense of cool
-['👍'] 😎
-A face with hearts instead of eyes, or Heart Eyes Emoji as it is generally known
-['😉'] 😍
-A smiling face, with smiling eyes and rosy cheeks
-['🔥'] 😊
-A classic winky emoji; winking and smiling
-['🔥'] 😉
-A laughing emoji which at small sizes is often mistaken for being tears of sadness
-['😍'] 😂
-A version of the grinning face showing smiling eyes
-['😂'] 😁
-A classic red love heart emoji, used to express love
-['👏'] ❤
-A small flame, mostly yellow but red at the top
-['😎'] 🔥
-100 emoji: the number one-hundred, written in red, underlined twice for emphasis
-['❤'] 💯
-An arm flexing to show its biceps muscle
-['😂'] 💪
-Two hands clapping emoji, which when used multiple times can be used as a round of applause
-['😁'] 👏
-A thumbs-up gesture indicating approval
-['🙌'] 👍
-Index finger touching thumb to make an open circle
-['❤'] 👌
-A fist displayed in a position to punch someone, or to fist-bump another person
-['😂'] 👊
-A pair of eyes, glancing slightly to the left on most platforms
-['😂'] 👀
-A colorful party popper, used for party or other celebration
-['👍'] 🎉
 
 **Twitter Model**
-  Accuracy: 0.46
-  Precision: 0.20
-  Recall: 0.12
-  F1_score: 0.14
-  MRR_score: 0.601
-acc: 0.564
-0.6886
-0.4561560668403116 0.35523461960361236 0.3747818753977712
+
  |    | Emoji   |   precision |    recall |   f_score |
 |---:|:--------|------------:|----------:|----------:|
 |  0 | 💪      |    0.454545 | 0.246914  | 0.32      |
@@ -208,125 +191,67 @@ mrrr: 0.1779
 | 18 | 😍      |  0.0448573  | 0.105207   | 0.0628971  |
 | 19 | 😂      |  0.0661511  | 0.407295   | 0.113817   |
 
-Two hands placed firmly together, meaning please or thank you in Japanese culture
-['😊'] 🙏
-Two hands raised in the air, celebrating success or another joyous event
-['🎉'] 🙌
-A face showing a stuck-out tongue, winking at the same time
-['😂'] 😜
-An emoji face blowing a kiss; but officially called “Face Throwing A Kiss”
-['😂'] 😘
-A face smiling and wearing dark sunglasses that is used to denote a sense of cool
-['😎'] 😎
-A face with hearts instead of eyes, or Heart Eyes Emoji as it is generally known
-['😍'] 😍
-A smiling face, with smiling eyes and rosy cheeks
-['😊'] 😊
-A classic winky emoji; winking and smiling
-['😊'] 😉
-A laughing emoji which at small sizes is often mistaken for being tears of sadness
-['😂'] 😂
-A version of the grinning face showing smiling eyes
-['😂'] 😁
-A classic red love heart emoji, used to express love
-['😍'] ❤
-A small flame, mostly yellow but red at the top
-['🔥'] 🔥
-100 emoji: the number one-hundred, written in red, underlined twice for emphasis
-['👌'] 💯
-An arm flexing to show its biceps muscle
-['💪'] 💪
-Two hands clapping emoji, which when used multiple times can be used as a round of applause
-['👏'] 👏
-A thumbs-up gesture indicating approval
-['😊'] 👍
-Index finger touching thumb to make an open circle
-['😂'] 👌
-A fist displayed in a position to punch someone, or to fist-bump another person
-['👊'] 👊
-A pair of eyes, glancing slightly to the left on most platforms
-['👀'] 👀
-A colorful party popper, used for party or other celebration
-['🎉'] 🎉
+
 
 #### TF-IDF
-Twitter data:
-MRR: 0.4125194664377808
-accuracy, precision, recall, f_score
-0.27552017192536876, 0.16166721753945418, 0.16785452251506075, 0.16383278639341853
 
-|    | Emoji   |   precision |   recall |   f_score |
-|---:|:--------|------------:|---------:|----------:|
-|  0 | ❤       |       0.105 |    0.122 |     0.113 |
-|  1 | 😂      |       0.52  |    0.446 |     0.48  |
-|  2 | 👍      |       0.173 |    0.165 |     0.169 |
-|  3 | 🙏      |       0.185 |    0.173 |     0.179 |
-|  4 | 🙌      |       0.089 |    0.1   |     0.094 |
-|  5 | 😘      |       0.172 |    0.191 |     0.181 |
-|  6 | 😍      |       0.248 |    0.304 |     0.273 |
-|  7 | 😊      |       0.171 |    0.191 |     0.181 |
-|  8 | 🔥      |       0.241 |    0.27  |     0.255 |
-|  9 | 👏      |       0.101 |    0.099 |     0.1   |
-| 10 | 👌      |       0.126 |    0.142 |     0.133 |
-| 11 | 💪      |       0.044 |    0.085 |     0.058 |
-| 12 | 👊      |       0.1   |    0.117 |     0.108 |
-| 13 | 😉      |       0.09  |    0.086 |     0.088 |
-| 14 | 🎉      |       0.347 |    0.359 |     0.353 |
-| 15 | 😎      |       0.077 |    0.069 |     0.073 |
-| 16 | 😁      |       0.054 |    0.049 |     0.051 |
-| 17 | 💯      |       0.164 |    0.146 |     0.154 |
-| 18 | 😜      |       0.047 |    0.038 |     0.042 |
-| 19 | 👀      |       0.18  |    0.204 |     0.191 |
-
-MC_20 data:
-0.8759813176984994, 0.9347602829799115, 0.8753127455096849, 0.8942774561141837
-MRR: 0.8909613947189403
-|    | Emoji   |   precision |   recall |   f_score |
-|---:|:--------|------------:|---------:|----------:|
-|  0 | ❤       |       0.984 |    0.832 |     0.901 |
-|  1 | 😂      |       0.967 |    0.799 |     0.875 |
-|  2 | 👍      |       0.978 |    0.845 |     0.907 |
-|  3 | 🙏      |       0.964 |    0.815 |     0.883 |
-|  4 | 🙌      |       0.867 |    0.841 |     0.854 |
-|  5 | 😘      |       0.977 |    0.765 |     0.858 |
-|  6 | 😍      |       0.977 |    0.886 |     0.929 |
-|  7 | 😊      |       0.949 |    0.86  |     0.902 |
-|  8 | 🔥      |       0.996 |    0.914 |     0.953 |
-|  9 | 👏      |       0.957 |    0.895 |     0.925 |
-| 10 | 👌      |       0.982 |    0.908 |     0.944 |
-| 11 | 💪      |       0.996 |    0.91  |     0.951 |
-| 12 | 👊      |       0.969 |    0.863 |     0.913 |
-| 13 | 😉      |       0.996 |    0.923 |     0.958 |
-| 14 | 🎉      |       0.981 |    0.93  |     0.955 |
-| 15 | 😎      |       0.986 |    0.892 |     0.937 |
-| 16 | 😁      |       0.982 |    0.886 |     0.932 |
-| 17 | 💯      |       0.336 |    0.974 |     0.5   |
-| 18 | 😜      |       0.988 |    0.952 |     0.97  |
-| 19 | 👀      |       0.864 |    0.815 |     0.839 |
+| TF-IDF  | Twitter unbalanced | MC_20 |
+|--------:|--------------------|------:|
+|Accuracy | 0.276 | 0.876 |
+|Recall   | 0.168 |   0.875  |
+|Precision|  0.162 | 0.935 |
+| F_score | 0.164 | 0.894 |
+|  MRR    |  0.413 | 0.891 |
 
 
-|    | Gold   | Tf-idf_twitter |Tf-idf_MC_20| Line                                                                                        |
+|    | Emoji | precision_mc | recall_mc | f_score_mc | precision_tw | recall_tw | f_score_tw |
+|---:|-------|-------------:|----------:|-----------:|-------------:|----------:|-----------:|
+|  0 | ❤     |        0.984 |     0.832 |      0.901 |        0.105 |     0.122 |      0.113 |
+|  1 | 😂     |        0.967 |     0.799 |      0.875 |         0.52 |     0.446 |       0.48 |
+|  2 | 👍     |        0.978 |     0.845 |      0.907 |        0.173 |     0.165 |      0.169 |
+|  3 | 🙏     |        0.964 |     0.815 |      0.883 |        0.185 |     0.173 |      0.179 |
+|  4 | 🙌     |        0.867 |     0.841 |      0.854 |        0.089 |       0.1 |      0.094 |
+|  5 | 😘     |        0.977 |     0.765 |      0.858 |        0.172 |     0.191 |      0.181 |
+|  6 | 😍     |        0.977 |     0.886 |      0.929 |        0.248 |     0.304 |      0.273 |
+|  7 | 😊     |        0.949 |      0.86 |      0.902 |        0.171 |     0.191 |      0.181 |
+|  8 | 🔥     |        0.996 |     0.914 |      0.953 |        0.241 |      0.27 |      0.255 |
+|  9 | 👏     |        0.957 |     0.895 |      0.925 |        0.101 |     0.099 |        0.1 |
+| 10 | 👌     |        0.982 |     0.908 |      0.944 |        0.126 |     0.142 |      0.133 |
+| 11 | 💪     |        0.996 |      0.91 |      0.951 |        0.044 |     0.085 |      0.058 |
+| 12 | 👊     |        0.969 |     0.863 |      0.913 |          0.1 |     0.117 |      0.108 |
+| 13 | 😉     |        0.996 |     0.923 |      0.958 |         0.09 |     0.086 |      0.088 |
+| 14 | 🎉     |        0.981 |      0.93 |      0.955 |        0.347 |     0.359 |      0.353 |
+| 15 | 😎     |        0.986 |     0.892 |      0.937 |        0.077 |     0.069 |      0.073 |
+| 16 | 😁     |        0.982 |     0.886 |      0.932 |        0.054 |     0.049 |      0.051 |
+| 17 | 💯     |        0.336 |     0.974 |        0.5 |        0.164 |     0.146 |      0.154 |
+| 18 | 😜     |        0.988 |     0.952 |       0.97 |        0.047 |     0.038 |      0.042 |
+| 19 | 👀     |        0.864 |     0.815 |      0.839 |         0.18 |     0.204 |      0.191 |
+
+
+**Evaluation by emoji definitions**
+
+|    | Gold   | Tf-idf_twitter |Tf-idf_MC_20|BERT_MC_20 | BERT_twitter | Line                                                                                        |
 |---:|:-------|:---------|:-----------|:--------------------------------------------------------------------------------------------|
-|  0 | 🙏     | 👍   | 👀    | |Two hands placed firmly together, meaning please or thank you in Japanese culture           |
-|  1 | 🙌     | 😂   | 👍   | Two hands raised in the air, celebrating success or another joyous event                    |
-|  2 | 😜     | 😉   | 🎉  | A face showing a stuck-out tongue, winking at the same time                                 |
-|  3 | 😘     | 😘   | 😘  | An emoji face blowing a kiss; but officially called “Face Throwing A Kiss”                  |
-|  4 | 😎     | 😍   | 👀  | A face smiling and wearing dark sunglasses that is used to denote a sense of cool           |
-|  5 | 😍     | 👀   | 👀 | A face with hearts instead of eyes, or Heart Eyes Emoji as it is generally known            |
-|  6 | 😊     | ❤    | 😁  | A smiling face, with smiling eyes and rosy cheeks                                           |
-|  7 | 😉     | 😉   | 👌  | A classic winky emoji; winking and smiling                                                  |
-|  8 | 😂     | 👌    | 💯  | A laughing emoji which at small sizes is often mistaken for being tears of sadness          |
-|  9 | 😁     | 😍   | 😁  | A version of the grinning face showing smiling eyes                                         |
-| 10 | ❤      | 😍   | 👀  | A classic red love heart emoji, used to express love                                        |
-| 11 | 🔥     | 😍    | 👍  | A small flame, mostly yellow but red at the top                                             |
-| 12 | 💯     | 😂   | 💯  | 100 emoji: the number one-hundred, written in red, underlined twice for emphasis            |
-| 13 | 💪     | 👀   | 🔥  | An arm flexing to show its biceps muscle                                                    |
-| 14 | 👏     | 👀   | 👀 | Two hands clapping emoji, which when used multiple times can be used as a round of applause |
-| 15 | 👍     | 👍   | 👏  | A thumbs-up gesture indicating approval                                                     |
-| 16 | 👌     | 😂   | 👏  | Index finger touching thumb to make an open circle                                          |
-| 17 | 👊     | 👊   | 👊  | A fist displayed in a position to punch someone, or to fist-bump another person             |
-| 18 | 👀     | 😍   |👀  | A pair of eyes, glancing slightly to the left on most platforms                             |
-| 19 | 🎉     | 🎉   | 😍 | A colorful party popper, used for party or other celebration                                |
+|  0 | 🙏     | 👍   | 👀    | 🙏 | 😊 |Two hands placed firmly together, meaning please or thank you in Japanese culture           |
+|  1 | 🙌     | 😂   | 👍   | 😘 |🎉 |Two hands raised in the air, celebrating success or another joyous event                    |
+|  2 | 😜     | 😉   | 🎉  |😍 | 😂 | A face showing a stuck-out tongue, winking at the same time                                 |
+|  3 | 😘     | 😘   | 😘  |😎 | 😂 | An emoji face blowing a kiss; but officially called “Face Throwing A Kiss”                  |
+|  4 | 😎     | 😍   | 👀  | 👍 | 😎 |A face smiling and wearing dark sunglasses that is used to denote a sense of cool           |
+|  5 | 😍     | 👀   | 👀 | 😉| 😍 |A face with hearts instead of eyes, or Heart Eyes Emoji as it is generally known            |
+|  6 | 😊     | ❤    | 😁  |🔥| 😊 | A smiling face, with smiling eyes and rosy cheeks                                           |
+|  7 | 😉     | 😉   | 👌  |🔥| 😊 |A classic winky emoji; winking and smiling                                                  |
+|  8 | 😂     | 👌    | 💯  |😍| 😂 |A laughing emoji which at small sizes is often mistaken for being tears of sadness          |
+|  9 | 😁     | 😍   | 😁  | 😂 | 😂 |A version of the grinning face showing smiling eyes                                         |
+| 10 | ❤      | 😍   | 👀  | 👏 | 👏 |A classic red love heart emoji, used to express love                                        |
+| 11 | 🔥     | 😍    | 👍  | 😎 | 🔥 |A small flame, mostly yellow but red at the top                                             |
+| 12 | 💯     | 😂   | 💯  | ❤ | 👌 | 100 emoji: the number one-hundred, written in red, underlined twice for emphasis            |
+| 13 | 💪     | 👀   | 🔥  | 😂|  💪 |An arm flexing to show its biceps muscle                                                    |
+| 14 | 👏     | 👀   | 👀 | 😁 |👏 | Two hands clapping emoji, which when used multiple times can be used as a round of applause |
+| 15 | 👍     | 👍   | 👏  | 🙌 | 😊 |A thumbs-up gesture indicating approval                                                     |
+| 16 | 👌     | 😂   | 👏  | ❤ | 😂 |Index finger touching thumb to make an open circle                                          |
+| 17 | 👊     | 👊   | 👊  | 😂 | 👊 |A fist displayed in a position to punch someone, or to fist-bump another person             |
+| 18 | 👀     | 😍   |👀  | 😂 | 👀 |A pair of eyes, glancing slightly to the left on most platforms                             |
+| 19 | 🎉     | 🎉   | 😍 | 👍 | 🎉 |A colorful party popper, used for party or other celebration                                |
 
 
 ## References
