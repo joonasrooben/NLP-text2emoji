@@ -168,6 +168,10 @@ What really pops out is how well BERT Twitter is performing. In comparison to th
 
 For the BiGRU model we have done the data preprocessing which takes into account the pretrained word vectors from Fasttext. Based on Homework 5 materials we are able to predict emojis to each word, but are still struggling to modify the code in order to get the model to work for our task of predicting the full caption. Hopefully we will overcome this obstacle and will be able to present our BiGRU model in the next project milestone.
 
+#### Skip-gram + logistic Regression
+
+For skip-gram, we trained with MC_20 dataset and vectorized all the words in each text, average all the vectors so that we have a vectorized form for each twitter text. However, we have a problem with this model. When we train logistic regression model with same MC_20 dataset, the accuracy is very low about 17%. Even when we use exactly same dataset for skip-gram, logistic regression, and for evalution, still the accuracy is very low. We will try to fix this problem so that we can show and compare the result.  
+
 ## References
 <a id="1">[1]</a> 
 Barbieri, Francesco & Ballesteros, Miguel & Saggion, Horacio. (2017). Are Emojis Predictable?. 105-111. 10.18653/v1/E17-2017. 
