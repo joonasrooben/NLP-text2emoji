@@ -103,7 +103,7 @@ We can see from the table above, that the most difficult emoji to assign is 😜
 
 **Evaluation with swapped data**
 
-Both models behaved very weakly when faced with data from data from other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
+Both models behaved very weakly when faced with data from the other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
 
 
 #### TF-IDF
@@ -136,7 +136,7 @@ The tendencies between the training datasets in case of tf-idf are very similar 
 
 **Evaluation by emoji definitions**
 
-We decided to evaluate the goodness of the predictor also in a way to predict an emoji to the definition of the emoji. We can see the result in the table below:
+We decided to evaluate the goodness of the predictor also in a way of predicting an emoji to the definition of the emoji. We can see the result in the table below:
 
 |    | Gold   | Tf-idf_twitter |Tf-idf_MC_20|BERT_MC_20 | BERT_twitter | Line  |
 |---:|:-------|:---------|:-----------|:-------------|:----------|:----------------------------------------------------------------|
@@ -162,8 +162,11 @@ We decided to evaluate the goodness of the predictor also in a way to predict an
 | 19 | 🎉     | 🎉   | 😍 | 👍 | 🎉 |A colorful party popper, used for party or other celebration                                |
 |Cumulative:|20 | 5 | 4 | 1 | 10 | --------------------- |
 
-What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more spceific keywords.
+What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more specific keywords.
 
+#### BiGRU
+
+For the BiGRU model we have done the data preprocessing which takes into account the pretrained word vectors from Fasttext. Based on Homework 5 materials we are able to predict emojis to each word, but are still struggling to modify the code in order to get the model to work for our task of predicting the full caption. Hopefully we will overcome this obstacle and will be able to present our BiGRU model in the next project milestone.
 
 ## References
 <a id="1">[1]</a> 
