@@ -35,6 +35,12 @@ The main dataset has 1M sentences with emojis from Twitter from about 2017-Jan (
 
 The first Twitter dataset is downsized to consist only the same 20 most frequent emojis and match the size of the second dataset (total of 200000 tweets). So in the first dataset there are almost 70000 tweets for the most frequent emoji and 1500 tweets for the least frequent and for the second dataset there are 10000 tweets for each of the 20 emojis. Both of the datasets are split into 80% train, 10% dev and 10% test. In case of computational limitations on training the models, we will downsize both datasets equally.
 
+Here are the proportions of Twitter unbalanced dataset emoji frequencies:
+
+| Emoji | 💪   | 👊 | 🙌 |   🙏 |   ❤ |   😜 |   👏 |   🔥 |   😎 |   😁 |   😉 |   🎉 |   💯 |   👌 |   😘 |   👍 |   👀 |   😊 |   😍 |    😂 |
+|-------|-----|--:|--:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|-----:|
+| %     | 0.6 | 1 | 1 | 1.2 | 1.4 | 1.4 | 1.8 | 2.3 | 2.6 | 2.7 | 3.2 | 3.3 | 3.6 | 3.8 | 4.3 | 5.3 | 7.6 | 8.1 | 9.2 | 35.6 |
+
 
 ### Method
 
@@ -52,6 +58,9 @@ As related work does not give a plain signal if balanced or unbalanced data is b
 In the evaluation phase, we plan to output F1-score, recall, precision and accuracy. In addition, as emoji-prediciton can be rather fuzzy- we will try to take it in account by using also the Mean Reciprocal Rank (MRR) usually used in evaluating of the factoid QA models. But, as our task is as subjective- it should give a better understanding of the models' goodness. 
 
 ### Preliminary results
+From the initial plan of creating TF-IDF and Skip-gram model as baselines and BERT and BiGRU as the main models, we have succeeded in building BERT and TF-IDF. The evolution of the *in progress* models will be discussed as well together with finished models in the following subsections.
+
+**General results**
 
 | Results  | Tf_idf:Twitter unbalanced | Tf_idf:MC_20 | BERT:MC_20 | BERT:Twitter unbalanced |
 |--------:|--------------------|------:|------:|------:|
@@ -60,6 +69,8 @@ In the evaluation phase, we plan to output F1-score, recall, precision and accur
 |Precision|  0.162 | 0.935 | **0.939** | 0.20 |
 | F_score | 0.164 | 0.894 | **0.900** | 0.14 |
 |  MRR    |  0.413 | 0.891 | **0.908** |  0.601 |
+
+We can see that BERT model with MC_20 dataset has outperformed all the other variations and models. Funnily enough, the tf-idf with same data, has done almost as good job as BERT. Balanced MC_20 dataset trained models show remarkable recall and precision, meaning that the model has not overfitted to a specific emoji. In contrast, models trained on unbalanced Twitter dataset show some signs of overfitting to certain emoji. We will see the emoji-specific metrics and possible doctrine differences of the models trained on different datasets in the following sections.
 
 #### BERT
 Two BERT models were trained- one with the Twitter unbalanced dataset and other with MC-20 balanced dataset. During fine tuning, learning rate 5e-5 and batch size 16 with 3 epochs of training gave the best results. 
@@ -87,6 +98,8 @@ Two BERT models were trained- one with the Twitter unbalanced dataset and other 
 | 17 | 😊     |     0.981 |     0.836 |     0.903 |     0.377 |     0.456 |     0.413    |
 | 18 | 😍     |     **0.997** |     0.934 |     **0.964** |     0.542 |     0.634 |     0.584    |
 | 19 | 😂     |     0.878 |     0.836 |     0.856 |     **0.663** |     **0.853** |     **0.747**    |
+
+We can see from the table above, that the most difficult emoji to assign is 😜. Twitter based model did not even predict it once. For MC_20 model 😍 is the best predicted emoji and 😂 for the Twitter dataset based model. The 😂 emoji is by far the most frequent emoji in the Twitter dataset as well and the model is obviously very well tuned to predict it. One might argue that more frequent emojis should be predicted more often but if it comes from the account of predicting other emojis correctly, like in our case, the data shoud be kept balanced to avoid underfitting for other emojis.
 
 **Evaluation with swapped data**
 
@@ -119,9 +132,11 @@ Both models behaved very weakly when faced with data from data from other datase
 | 18 | 😜     |        0.988 |     0.952 |   **0.97** |        0.047 |     **0.038** |      **0.042** |
 | 19 | 👀     |        0.864 |     0.815 |      0.839 |         0.18 |     0.204 |      0.191 |
 
-
+The tendencies between the training datasets in case of tf-idf are very similar to BERT case.
 
 **Evaluation by emoji definitions**
+
+We decided to evaluate the goodness of the predictor also in a way to predict an emoji to the definition of the emoji. We can see the result in the table below:
 
 |    | Gold   | Tf-idf_twitter |Tf-idf_MC_20|BERT_MC_20 | BERT_twitter | Line  |
 |---:|:-------|:---------|:-----------|:-------------|:----------|:----------------------------------------------------------------|
@@ -146,6 +161,8 @@ Both models behaved very weakly when faced with data from data from other datase
 | 18 | 👀     | 😍   |👀  | 😂 | 👀 |A pair of eyes, glancing slightly to the left on most platforms                             |
 | 19 | 🎉     | 🎉   | 😍 | 👍 | 🎉 |A colorful party popper, used for party or other celebration                                |
 |Cumulative:|20 | 5 | 4 | 1 | 10 | --------------------- |
+
+What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more spceific keywords.
 
 
 ## References
