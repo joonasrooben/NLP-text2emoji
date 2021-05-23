@@ -46,7 +46,9 @@ Here are the proportions of Twitter unbalanced dataset emoji frequencies:
 
 The initial idea of building a RNN or CNN has been revised due to the last practice session where we covered BERT model. As, paper [[1]](#1) can provide us a very good comparison, we will definately try to implement GRU based recurrent network. In addition, we will create a BOW baseline model TF-IDF and hopefully an advancement to the RNN model- BERT. 
 
-For TF-IDF, BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
+For BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
+
+**TF-IDF** baseline model. Initially we tried to take the TF-IDF HW notebook and configure it to fit our problem but it appeared that with so large dataset, we will run out of RAM. So, we had to use the *sklearn* implementation instead which uses sparse matrices instead of *numpy* arrays. 
 
 **BiGRU** based model. We will use three types of embeddings: character based, word based pretrained and word based trainable embeddings. The use of character based embeddings is very much necessary as we are dealing with texts from social media which do not tend to be grammatically correct nor standard. The emedded sentences will be sent to bidirectional GRU layer and on top of it we will use two linear layers with Relu activation functions. Dropout layer layer will be added as regularization. As it is a classification task, we will only use the output from the last word and send it to the softmax layer which outputs the probability of the correct emoji per sentence. Here is a figure of the structure as well.  
 ![*BiGRU* based model](gru.png)
