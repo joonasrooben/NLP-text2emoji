@@ -48,10 +48,10 @@ The initial idea of building a RNN or CNN has been revised due to the last pract
 
 For TF-IDF, BERT and RNN implementations- we will use the materials from the homeworks as they provide a very good starting point for our own specific implementation. So, we will not write our code from scratch and can more concentrate on adaption, performance and evaluation. Therefore we will use *PyTorch* framework.
 
-**BiGRU** based model. We will use three types of embeddings: character based, word based pretrained and word based trainable embeddings. The use of character based embeddings is very much necessary as we are dealing with texts from social media which do not tend to be grammatically correct nor standard. The emedded sentences will be sent to bidirectional GRU layer and on top of it we will use two linear layers with Relu activation functions. Dropout might be also considered regularization. In the end we will have a softmax layer which outputs the probability of the correct emoji. Here is a figure of the structure as well.  
+**BiGRU** based model. We will use three types of embeddings: character based, word based pretrained and word based trainable embeddings. The use of character based embeddings is very much necessary as we are dealing with texts from social media which do not tend to be grammatically correct nor standard. The emedded sentences will be sent to bidirectional GRU layer and on top of it we will use two linear layers with Relu activation functions. Dropout layer layer will be added as regularization. As it is a classification task, we will only use the output from the last word and send it to the softmax layer which outputs the probability of the correct emoji per sentence. Here is a figure of the structure as well.  
 ![*BiGRU* based model](gru.png)
 
-**BERT** based model. We will train a multi-class classifier by fine-tuning BERT from transformers library by HuggingFace. We will not use the large BERT but the light-weight version *DistilBert* with AdamW optimizer. 
+**BERT** based model. We will train a multi-class classifier by fine-tuning BERT from transformers library by HuggingFace. We will not use the large BERT but the light-weight version *DistilBert* with AdamW optimizer. More concretly: ´DistilBertForSequenceClassification´ and "distilbert-base-uncased" by Huggingface.
 
 As related work does not give a plain signal if balanced or unbalanced data is better in emoji prediction, all the models will be trained on two datasets: unbalanced and balanced with same size and emojis. This way we hope to draw some conclusions in this dark area.
 
@@ -167,6 +167,14 @@ What really pops out is how well BERT Twitter is performing. In comparison to th
 #### BiGRU
 
 For the BiGRU model we have done the data preprocessing which takes into account the pretrained word vectors from Fasttext. Based on Homework 5 materials we are able to predict emojis to each word, but are still struggling to modify the code in order to get the model to work for our task of predicting the full caption. Hopefully we will overcome this obstacle and will be able to present our BiGRU model in the next project milestone.
+
+--update--
+We have had a massive trouble to adapt the one-to-one GRU model to become many-to-one i.e to work as a classifier. Eventually, we managed to overfit a small dataset and make it work. But already with bigger datasets, it does not give any hope of actually converging. So, it works but not well enough to be able to get any results. The initial idea of BiGRU has failed. The possible factors hindering the learning:
+
+- wrong hyperparameters
+- the representation that is fed into softmax is not optimal or is faulty
+- too few layers i.e depth
+- weak computational resources
 
 #### Skip-Gram + Logistic Regression
 
