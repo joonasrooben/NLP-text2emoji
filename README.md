@@ -180,7 +180,7 @@ We have had a massive trouble to adapt the one-to-one GRU model to become many-t
 
 #### Skip-Gram + Logistic Regression
 
-For skip-gram, we trained with MC_20 dataset and vectorized all the words in each text, average all the vectors so that we have a vectorized form for each twitter text. However, we have a problem with this model. When we train logistic regression model with same MC_20 dataset, the accuracy is very low about 17%. Even when we use exactly same dataset for skip-gram, logistic regression, and for evalution, still the accuracy is very low. We will try to fix this problem so that we can show and compare the result.  
+For skip-gram, we trained with MC_20 dataset and vectorized all the words in each text, average all the vectors so that we have a vectorized form for each twitter text. However, we have a problem with this model. When we train logistic regression model with same MC_20 dataset, the accuracy is very low about 17%. Even when we use exactly same dataset for skip-gram, logistic regression, and for evalution, still the accuracy is very low.
 
 ## References
 <a id="1">[1]</a> 
