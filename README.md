@@ -1,6 +1,12 @@
 # caption2emoji
 **Aima Allik, Joonas Järve, Shumpei Morimoto**
 
+## Abstract 
+
+TODO
+
+## Introduction
+
 ### Objective
 The plan is to create a NLP model that is capable to assign/predict emojis to given caption/tweet/text. 
 To illustrate the idea, let's think of a typical predictive keyboard that suggest us the next words. This is very similar to our goal, the model will predict an emoji corresponding to the inserted text. The idea is partly based on the article [[1]](#1) by Francesco Barbieri et al.
@@ -8,7 +14,7 @@ To illustrate the idea, let's think of a typical predictive keyboard that sugges
 ### Evaluation
 In most of the articles, goodness is usually measured with traditional recall, precision, accuracy and F-score. In addition to the latter measures, as the target is rather subjective we cannot really tell which is the gold label or if we are not assigning too big of an error to the wrong label, although some emojis are very similar (e.g :smiley: and :smile:). Therefore, we could use a different measure. One way is to measure the predicted emoji similarity with the initial description of the emoji. The other way would be to evaluate the prediction which was in the users head. So, for that, we might need to carry out an extrinsic evaluation in the end to find out the model's actual performance.
 
-### Related work
+## Related work
 In this section we will give a slight overview of what has been done earlier and mention the papers' similarities to our project. Some of the papers are more related to our project but some of the chosen ones face the wide world of emoji research from the different perspective i.e embeddings perspective. Nevertheless, we included them, as they point out the possibilities of the area.
 
 * [Are Emojis Predictable?](https://arxiv.org/pdf/1702.07285.pdf)[[1]](#1)
@@ -28,6 +34,10 @@ In this paper, the representation of emojis were estimated directly and only fro
 
 * [Emoji Prediction: Extensions and Benchmarking](https://arxiv.org/ftp/arxiv/papers/2007/2007.07389.pdf)[[6]](#6)
 The goal of the paper is very similar to ours - to predict the most appropriate emoji(s) to a given piece of text. They used the BERT and DeepMoji models for prediction. The authors address the problem of the lack of a benchmark dataset in the field of emoji prediction. They state that the insufficent means make it difficult to compare the performances of different emoji prediction models. Therefore, they provide such benchmark datasets and are waiting for other researchers to base their work on the datasets. As this article is fairly new (from August of 2020), it is a good opportunity for us to make use of the data. The only downside seems to be that the data and code for this paper is available only upon request.
+
+## Method 
+
+In this section we will give an overview of the data we used and which methods we used for the work.
 
 ### Data
 
@@ -59,23 +69,28 @@ As related work does not give a plain signal if balanced or unbalanced data is b
 
 In the evaluation phase, we plan to output F1-score, recall, precision and accuracy. In addition, as emoji-prediciton can be rather fuzzy- we will try to take it in account by using also the Mean Reciprocal Rank (MRR) usually used in evaluating of the factoid QA models. But, as our task is as subjective- it should give a better understanding of the models' goodness. 
 
-### Preliminary results
-From the initial plan of creating TF-IDF and Skip-gram model as baselines and BERT and BiGRU as the main models, we have succeeded in building BERT and TF-IDF. The evolution of the *in progress* models will be discussed as well together with finished models in the following subsections.
+## Results
+From the initial plan of creating TF-IDF and Skip-gram model as baselines and BERT and BiGRU as the main models, we succeeded in building BERT and TF-IDF. The problems that occurred with the skip-gram and BiGRU will be discussed as well. 
 
 **General results**
 
-| Results  | Tf_idf:Twitter unbalanced | Tf_idf:MC_20 | BERT:MC_20 | BERT:Twitter unbalanced |
-|--------:|--------------------|------:|------:|------:|
-|Accuracy | 0.276 | 0.876 | **0.88** | 0.46|
-|Recall   | 0.168 |   0.875  | **0.880** | 0.12 |
-|Precision|  0.162 | 0.935 | **0.939** | 0.20 |
-| F_score | 0.164 | 0.894 | **0.900** | 0.14 |
-|  MRR    |  0.413 | 0.891 | **0.908** |  0.601 |
+The results of all the well-working models are given in the table below. Tf-idf and BERT models are both trained on two datasets and their performance comapared to each other.
+
+| Results   | Tf_idf:Twitter unbalanced | BERT:Twitter unbalanced | Tf_idf:MC_20 | BERT:MC_20 |
+|-----------|---------------------------|-------------------------|--------------|------------|
+| Accuracy  | 0.276                     | 0.46                    | 0.876        | **0.88**   |
+| Recall    | 0.168                     | 0.12                    | 0.875        | **0.880**  |
+| Precision | 0.162                     | 0.20                    | 0.935        | **0.939**  |
+| F_score   | 0.164                     | 0.14                    | 0.894        | **0.900**  |
+| MRR       | 0.413                     | 0.601                   | 0.891        | **0.908**  |
 
 We can see that BERT model with MC_20 dataset has outperformed all the other variations and models. Funnily enough, the tf-idf with same data, has done almost as good job as BERT. Balanced MC_20 dataset trained models show remarkable recall and precision, meaning that the model has not overfitted to a specific emoji. In contrast, models trained on unbalanced Twitter dataset show some signs of overfitting to certain emoji. We will see the emoji-specific metrics and possible doctrine differences of the models trained on different datasets in the following sections.
 
-#### BERT
-Two BERT models were trained- one with the Twitter unbalanced dataset and other with MC-20 balanced dataset. During fine tuning, learning rate 5e-5 and batch size 16 with 3 epochs of training gave the best results. 
+### BERT
+
+Let's look at BERT's results more closely. 
+
+Two BERT models were trained- one with the Twitter unbalanced dataset and other with MC-20 balanced dataset. During fine tuning, learning rate 5e-5 and batch size 16 with 3 epochs of training gave the best results. In the table below we can see BERT's emoji specific results.
 
 |    |       | MC_20     | MC_20     | MC_20     | Twitter   | Twitter   | Twitter      |
 |----|-------|-----------|-----------|-----------|-----------|-----------|--------------|
@@ -103,13 +118,9 @@ Two BERT models were trained- one with the Twitter unbalanced dataset and other 
 
 We can see from the table above, that the most difficult emoji to assign is 😜. Twitter based model did not even predict it once. For MC_20 model 😍 is the best predicted emoji and 😂 for the Twitter dataset based model. The 😂 emoji is by far the most frequent emoji in the Twitter dataset as well and the model is obviously very well tuned to predict it. One might argue that more frequent emojis should be predicted more often but if it comes from the account of predicting other emojis correctly, like in our case, the data shoud be kept balanced to avoid underfitting for other emojis.
 
-**Evaluation with swapped data**
+### TF-IDF
 
-Both models behaved very weakly when faced with data from the other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
-
-
-#### TF-IDF
-
+Now, let's look the results of TF-IDF more closely. In the table below we can its emoji specific results.
 
 |    | Emoji | precision_mc | recall_mc | f_score_mc | precision_tw | recall_tw | f_score_tw |
 |---:|-------|-------------:|----------:|-----------:|-------------:|----------:|-----------:|
@@ -135,6 +146,13 @@ Both models behaved very weakly when faced with data from the other dataset. Bot
 | 19 | 👀     |        0.864 |     0.815 |      0.839 |         0.18 |     0.204 |      0.191 |
 
 The tendencies between the training datasets in case of tf-idf are very similar to BERT case.
+
+### Special evaluations
+
+
+**Evaluation with swapped data**
+
+Both models behaved very weakly when faced with data from the other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
 
 **Evaluation by emoji definitions**
 
@@ -166,7 +184,7 @@ We decided to evaluate the goodness of the predictor also in a way of predicting
 
 What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more specific keywords.
 
-#### BiGRU
+### BiGRU
 
 For the BiGRU model we have done the data preprocessing which takes into account the pretrained word vectors from Fasttext. Based on Homework 5 materials we are able to predict emojis to each word, but are still struggling to modify the code in order to get the model to work for our task of predicting the full caption. Hopefully we will overcome this obstacle and will be able to present our BiGRU model in the next project milestone.
 
@@ -178,9 +196,22 @@ We have had a massive trouble to adapt the one-to-one GRU model to become many-t
 - too few layers i.e depth
 - weak computational resources
 
-#### Skip-Gram + Logistic Regression
+### Skip-Gram + Logistic Regression
 
 For skip-gram, we trained with MC_20 dataset and vectorized all the words in each text, average all the vectors so that we have a vectorized form for each twitter text. However, we have a problem with this model. When we train logistic regression model with same MC_20 dataset, the accuracy is very low about 17%. Even when we use exactly same dataset for skip-gram, logistic regression, and for evalution, still the accuracy is very low.
+
+## Discussion
+
+We have seen that the task of emoji prediction is not the most obvious one, although, in its essence it is just a classification task or even more- a sentiment classification task. The truth is that, emojis do carry an important proportion of the sentiment of the preceeding sentence but they are very often used sarcastically or even in a way to contradict the sentiment itself. So, obviously we cannot rely only on words- we have to understand the context as well. Therefore, BERT beat the TF-IDF. 
+
+The most similar article to our work was "Are Emojis Predictable?" [[1]](#1) and they used similar dataset to the Twitter dataset i.e heavily unbalanced. We could not beat their results on that dataset but with MC_20 it was beaten with an ease. But the important aspect is, that they did not find any problem in using unbalanced dataset. They concluded: "The frequency seems to be very relevant. The Ranking of the most frequent emojis is lower than the Ranking of the rare emojis. This means that if an emoji is frequent, it is more likely to be on top of the possible choices even if it is a mistake. On the other hand, the F-measure does not seem to depend on frequency, as the highest F-measures are scored by a mix of common and uncommon emojis ..." [[1]](#1). In our Twitter dataset case, we found the conclusion to be similar to theirs' but the conclusion about F-scores is arguable. In a way it is true, also in our case, that some high f-scores are from the low frequency emojis but the main weight is still on the side of the majority classes. The statistical significance was not tested in neither of the cases. Therefore, as the balance still plays a major role in the results, it would be more obvious to use balanced dataset. 
+
+The temptation to use more classes then 20 i.e more than usually included in the research for this task, is still valid and this could be executed as an add-on to a keyboard to provide useful as well. Furthermore, the model could learn from the user, how and in which context the emojis are often used.
+
+* demo
+* compared with previous work
+* simple models!
+* balance as in other articles
 
 ## References
 <a id="1">[1]</a> 
