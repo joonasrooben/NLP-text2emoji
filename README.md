@@ -61,7 +61,7 @@ For BERT and RNN implementations- we will use the materials from the homeworks a
 **TF-IDF** baseline model. Initially we tried to take the TF-IDF HW notebook and configure it to fit our problem but it appeared that with so large dataset, we will run out of RAM. So, we had to use the *sklearn* implementation instead which uses sparse matrices instead of *numpy* arrays. 
 
 **BiGRU** based model. We will use three types of embeddings: character based, word based pretrained and word based trainable embeddings. The use of character based embeddings is very much necessary as we are dealing with texts from social media which do not tend to be grammatically correct nor standard. The emedded sentences will be sent to bidirectional GRU layer and on top of it we will use two linear layers with Relu activation functions. Dropout layer layer will be added as regularization. As it is a classification task, we will only use the output from the last word and send it to the softmax layer which outputs the probability of the correct emoji per sentence. Here is a figure of the structure as well.  
-![*BiGRU* based model](gru.png)
+![*BiGRU* based model](img-embs_app.png)
 
 **BERT** based model. We will train a multi-class classifier by fine-tuning BERT from transformers library by HuggingFace. We will not use the large BERT but the light-weight version *DistilBert* with AdamW optimizer. More concretly: ´DistilBertForSequenceClassification´ and "distilbert-base-uncased" by Huggingface.
 
@@ -149,14 +149,13 @@ The tendencies between the training datasets in case of tf-idf are very similar 
 
 ### Special evaluations
 
-
 **Evaluation with swapped data**
 
-Both models behaved very weakly when faced with data from the other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
+As the models trained on different datasets gave very different results, one might wonder how would they behave on swapped datasets. Unfortunately, both models behaved very weakly when faced with data from the other dataset. Both achieved accuracy approximately ~5% and MRR score of ~17%.
 
 **Evaluation by emoji definitions**
 
-We decided to evaluate the goodness of the predictor also in a way of predicting an emoji to the definition of the emoji. We can see the result in the table below:
+To see how well can the models predict the emojis by their definition, we gathered the emoji descriptions and tried it out. These results should indicate if the models is being trained to predict emojis by some certain keyword or by context. We can see the result in the table below:
 
 |    | Gold   | Tf-idf_twitter |Tf-idf_MC_20|BERT_MC_20 | BERT_twitter | Line  |
 |---:|:-------|:---------|:-----------|:-------------|:----------|:----------------------------------------------------------------|
@@ -182,14 +181,11 @@ We decided to evaluate the goodness of the predictor also in a way of predicting
 | 19 | 🎉     | 🎉   | 😍 | 👍 | 🎉 |A colorful party popper, used for party or other celebration                                |
 |Cumulative:|20 | 5 | 4 | 1 | 10 | --------------------- |
 
-What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more specific keywords.
+What really pops out is how well BERT Twitter is performing. In comparison to the MC_20 BERT with its 1/20 accuracy, BERT Twitter makes it 10 out of 20 times correctly. This may be caused by the difference of the labelled data itself. The Twitter data has usually more obvious referrative signs in its texts than MC_20. This might cause the MC_20 model to learn more context and Twitter model more specific keywords. TF-IDF is behaving like not entirely context-based nor keyword-based.
 
 ### BiGRU
 
-For the BiGRU model we have done the data preprocessing which takes into account the pretrained word vectors from Fasttext. Based on Homework 5 materials we are able to predict emojis to each word, but are still struggling to modify the code in order to get the model to work for our task of predicting the full caption. Hopefully we will overcome this obstacle and will be able to present our BiGRU model in the next project milestone.
-
---update--
-We have had a massive trouble to adapt the one-to-one GRU model to become many-to-one i.e to work as a classifier. Eventually, we managed to overfit a small dataset and make it work. But already with bigger datasets, it does not give any hope of actually converging. So, it works but not well enough to be able to get any results. The initial idea of BiGRU has failed. The possible factors hindering the learning:
+We had a massive trouble to adapt the one-to-one GRU model to become many-to-one i.e to work as a classifier. Eventually, we managed to overfit a small dataset and make it work. But already with bigger datasets, it did not give any hope of actually converging. So, it works but not well enough to be able to get any results. The initial idea of BiGRU has failed. The possible factors hindering the learning:
 
 - wrong hyperparameters
 - the representation that is fed into softmax is not optimal or is faulty
@@ -204,14 +200,19 @@ For skip-gram, we trained with MC_20 dataset and vectorized all the words in eac
 
 We have seen that the task of emoji prediction is not the most obvious one, although, in its essence it is just a classification task or even more- a sentiment classification task. The truth is that, emojis do carry an important proportion of the sentiment of the preceeding sentence but they are very often used sarcastically or even in a way to contradict the sentiment itself. So, obviously we cannot rely only on words- we have to understand the context as well. Therefore, BERT beat the TF-IDF. 
 
-The most similar article to our work was "Are Emojis Predictable?" [[1]](#1) and they used similar dataset to the Twitter dataset i.e heavily unbalanced. We could not beat their results on that dataset but with MC_20 it was beaten with an ease. But the important aspect is, that they did not find any problem in using unbalanced dataset. They concluded: "The frequency seems to be very relevant. The Ranking of the most frequent emojis is lower than the Ranking of the rare emojis. This means that if an emoji is frequent, it is more likely to be on top of the possible choices even if it is a mistake. On the other hand, the F-measure does not seem to depend on frequency, as the highest F-measures are scored by a mix of common and uncommon emojis ..." [[1]](#1). In our Twitter dataset case, we found the conclusion to be similar to theirs' but the conclusion about F-scores is arguable. In a way it is true, also in our case, that some high f-scores are from the low frequency emojis but the main weight is still on the side of the majority classes. The statistical significance was not tested in neither of the cases. Therefore, as the balance still plays a major role in the results, it would be more obvious to use balanced dataset. 
+The most similar article to our work was "Are Emojis Predictable?" [[1]](#1) and they used similar dataset to the Twitter dataset i.e heavily unbalanced. We could not beat their results on that dataset but with MC_20 it was beaten with an ease. But the important aspect is, that they did not find any problem in using unbalanced dataset. They concluded: "The frequency seems to be very relevant. The Ranking of the most frequent emojis is lower than the Ranking of the rare emojis. This means that if an emoji is frequent, it is more likely to be on top of the possible choices even if it is a mistake. On the other hand, the F-measure does not seem to depend on frequency, as the highest F-measures are scored by a mix of common and uncommon emojis ..." [[1]](#1). In our Twitter dataset case, we found the conclusion to be similar to theirs' but the conclusion about F-scores is arguable. In a way it is true, also in our case, that some high f-scores are from the low frequency emojis but the main weight is still on the side of the majority classes. The statistical significance was not tested in neither of the cases. Therefore, as the balance still plays a major role in the results, it would be more obvious to use balanced dataset.
 
-The temptation to use more classes then 20 i.e more than usually included in the research for this task, is still valid and this could be executed as an add-on to a keyboard to provide useful as well. Furthermore, the model could learn from the user, how and in which context the emojis are often used.
+In the other hand, the main reason to use an unbalanced dataset that have more samples of more frequent emojis, can be the very essence of frequently used emojis. They are more fuzzy and have a lot more use cases. Therefore, it makes sense to have not entirely uniform distribution but the emojis whose nr of data can be reduced must be selected with care and can be selected by building models on smaller balanced datasets.
 
-* demo
-* compared with previous work
-* simple models!
-* balance as in other articles
+So, we have seen that balance plays in important role in training such models but tweaking the balance with care can make the training more efficient.
+
+In further more emojis can be included to the model and eventually built into a predictive keyboard to make use of it!
+
+Check out the TF-IDF [demo](https://share.streamlit.io/joonasrooben/emoji_pred_demo/main/tf_idf_twit.py)!
+
+# Conclusion
+
+In this project we built BERT, TF-IDF, BiGRU and Skip-Gram based models for emoji prediction. We managed to be successful with BERT and TF-IDF and could not managed to execute the BiGRU nor Skip-Gram models in their full glory. We trained the models on two dataset- balanced and unbalanced. We found that balance plays an important role in the performance of the models and should not be treated so carelessly as done in previous works. 
 
 ## References
 <a id="1">[1]</a> 
